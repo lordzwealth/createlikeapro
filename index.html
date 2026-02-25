@@ -950,6 +950,140 @@ footer strong { color: var(--lime); font-weight: 700; }
   .stat-item:last-child { border-bottom: none; }
   .nav-link { display: none; }
 }
+
+/* ── VIDEO SECTION ── */
+.video-section {
+  margin-top: 4rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.55s forwards;
+}
+
+.video-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--mid);
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.video-dot {
+  width: 8px;
+  height: 8px;
+  background: #FF4444;
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+  aspect-ratio: 16/9;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 20px;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10,10,15,0.7) 0%, rgba(10,10,15,0.4) 100%);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  cursor: pointer;
+  transition: background 0.3s;
+  border-radius: 20px;
+}
+
+.video-overlay:hover { background: rgba(10,10,15,0.5); }
+.video-overlay:hover .play-btn { transform: scale(1.1); background: var(--lime); }
+.video-overlay:hover .play-btn svg { color: var(--ink); }
+
+.play-btn {
+  width: clamp(56px, 8vw, 72px);
+  height: clamp(56px, 8vw, 72px);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s, background 0.25s;
+}
+
+.play-btn svg { color: white; margin-left: 3px; }
+
+.video-overlay-text { color: white; }
+
+.video-overlay-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.video-overlay-sub {
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.4rem;
+  font-weight: 300;
+}
+
+.video-overlay.hidden { display: none; }
+
+.video-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.video-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.chip-light {
+  background: var(--off);
+  border: 1px solid var(--border);
+  color: var(--mid);
+  padding: 0.3rem 0.9rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.video-apply-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--lime-dark);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.video-apply-link:hover { color: var(--ink); }
 </style>
 </head>
 <body>
@@ -990,23 +1124,40 @@ footer strong { color: var(--lime); font-weight: 700; }
         <span class="hero-micro">Free · By Application · March 28</span>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-band">
-        <div class="date-card">
-          <div class="date-card-day">28</div>
-          <div class="date-card-month">March 2026</div>
-        </div>
-        <div class="hero-band-text">
-          <div class="hero-band-title">Create Like a <span>Pro</span> 2026</div>
-          <div class="hero-band-meta">Free full-day workshop · Limited seats · By application only</div>
-          <div class="hero-band-chips">
-            <div class="chip">Content Strategy</div>
-            <div class="chip">Personal Branding</div>
-            <div class="chip">Audience Growth</div>
-            <div class="chip">Monetisation</div>
+    <!-- VIDEO SECTION -->
+    <div class="video-section">
+      <div class="video-label">
+        <span class="video-dot"></span>
+        Watch Before You Apply
+      </div>
+      <div class="video-wrapper">
+        <video
+          id="promoVideo"
+          src="WhatsApp_Video_2026-02-25_at_10_19_28.mp4"
+          controls
+          playsinline
+          preload="metadata"
+        ></video>
+        <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
+          <div class="play-btn">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-overlay-text">
+            <div class="video-overlay-title">Create Like a Pro 2026</div>
+            <div class="video-overlay-sub">Free Workshop &middot; March 28 &middot; Watch to see what&rsquo;s waiting for you</div>
           </div>
         </div>
       </div>
+      <div class="video-cta-row">
+        <div class="video-chips">
+          <div class="chip-light">Content Strategy</div>
+          <div class="chip-light">Personal Branding</div>
+          <div class="chip-light">Audience Growth</div>
+          <div class="chip-light">Monetisation</div>
+        </div>
+        <a href="#apply" class="video-apply-link">Apply after watching &rarr;</a>
+      </div>
+    </div>
     </div>
   </div>
 </div>
@@ -1314,6 +1465,14 @@ footer strong { color: var(--lime); font-weight: 700; }
 </footer>
 
 <script>
+
+  function playVideo() {
+    const video = document.getElementById('promoVideo');
+    const overlay = document.getElementById('videoOverlay');
+    overlay.classList.add('hidden');
+    video.play();
+  }
+
   const reveals = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
